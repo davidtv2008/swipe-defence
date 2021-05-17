@@ -37,8 +37,8 @@
   </PropertyGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\swipeCollision.cs" />
-     <Compile Include="Assets\Scripts\spawnProjectile.cs" />
      <Compile Include="Assets\Scripts\LineDraw.cs" />
+     <Compile Include="Assets\Scripts\spawnProjectile.cs" />
      <Compile Include="Assets\Scripts\projectileCollision.cs" />
     <Reference Include="UnityEngine">
         <HintPath>C:/Program Files/Unity/Hub/Editor/2021.1.6f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>

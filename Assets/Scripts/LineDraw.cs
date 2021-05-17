@@ -11,6 +11,8 @@ public class LineDraw : MonoBehaviour
     public LineRenderer lineRenderer;
     public EdgeCollider2D edgeCollider;
 
+    public GameObject particles;
+    private GameObject currentParticles;
     public List<Vector2> fingerPositions;
 
     private Vector2 startPos;
@@ -42,7 +44,7 @@ public class LineDraw : MonoBehaviour
     }
 
     void CreateLine(){
-        currentLine = Instantiate(linePrefab, Vector3.zero, Quaternion.identity);
+        currentLine = Instantiate(linePrefab, Vector3.zero, Quaternion.identity);        
         
         totalLineLength = 0f;
         
@@ -55,6 +57,10 @@ public class LineDraw : MonoBehaviour
 
         //save start position of when line starts
         startPos = fingerPositions[0];        
+
+        currentParticles = Instantiate(particles,fingerPositions[0],Quaternion.identity);   
+        currentParticles.transform.SetParent(currentLine.transform);     
+        
         
         lineRenderer.SetPosition(0,fingerPositions[0]);
         
@@ -68,6 +74,11 @@ public class LineDraw : MonoBehaviour
 
         //put a limit on the length of the line
         if(totalLineLength < 150f){
+
+            //currentParticles = Instantiate(particles,newFingerPos,Quaternion.identity);        
+            currentParticles = Instantiate(particles,newFingerPos,Quaternion.identity);   
+            currentParticles.transform.SetParent(currentLine.transform);     
+
             fingerPositions.Add(newFingerPos);
             lineRenderer.positionCount++;
             lineRenderer.SetPosition(lineRenderer.positionCount - 1, newFingerPos);
