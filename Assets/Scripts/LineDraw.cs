@@ -18,6 +18,7 @@ public class LineDraw : MonoBehaviour
     private Vector2 startPos;
     private Vector2 endPos;
 
+    
     private float totalLineLength = 0f;
 
     // Start is called before the first frame update
@@ -58,8 +59,8 @@ public class LineDraw : MonoBehaviour
         //save start position of when line starts
         startPos = fingerPositions[0];        
 
-        currentParticles = Instantiate(particles,fingerPositions[0],Quaternion.identity);   
-        currentParticles.transform.SetParent(currentLine.transform);     
+        //currentParticles = Instantiate(particles,fingerPositions[0],Quaternion.identity);   
+        //currentParticles.transform.SetParent(currentLine.transform);     
         
         
         lineRenderer.SetPosition(0,fingerPositions[0]);
@@ -76,8 +77,8 @@ public class LineDraw : MonoBehaviour
         if(totalLineLength < 150f){
 
             //currentParticles = Instantiate(particles,newFingerPos,Quaternion.identity);        
-            currentParticles = Instantiate(particles,newFingerPos,Quaternion.identity);   
-            currentParticles.transform.SetParent(currentLine.transform);     
+            //currentParticles = Instantiate(particles,newFingerPos,Quaternion.identity);   
+            //currentParticles.transform.SetParent(currentLine.transform);     
 
             fingerPositions.Add(newFingerPos);
             lineRenderer.positionCount++;
@@ -86,8 +87,4 @@ public class LineDraw : MonoBehaviour
         }       
     }
 
-    void OnTriggerEnter2d(Collider2D col){
-
-        Debug.Log("check");
-    }
 }

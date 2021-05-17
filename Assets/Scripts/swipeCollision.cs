@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class swipeCollision : MonoBehaviour
 {
+    public GameObject collisionParticles;
+    private GameObject currentCollisionParticles;
+
+    public float life = 100f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -17,7 +22,24 @@ public class swipeCollision : MonoBehaviour
     }
 
     void OnCollisionEnter2D(Collision2D col){
-        //Destroy(this.gameObject);
-        //Debug.Log("swipe collision");
+
+        ContactPoint2D point = col.GetContact(0);
+        Vector3 contactPoint = point.point;
+
+        //Debug.Log(contactPoint);
+
+        //add collision particle effect
+        addCollisionEffect(contactPoint);
+
+    }
+
+    void addCollisionEffect(Vector3 pos){
+
+        currentCollisionParticles = Instantiate(collisionParticles,pos,Quaternion.identity);
+
+        currentCollisionParticles.transform.parent = this.transform;
+
+        life -= 10f;
+
     }
 }
