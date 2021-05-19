@@ -18,6 +18,8 @@ public class LineDraw : MonoBehaviour
     private Vector2 startPos;
     private Vector2 endPos;
 
+    public int lineCountLimit = 3;
+
     
     private float totalLineLength = 0f;
 
@@ -31,7 +33,15 @@ public class LineDraw : MonoBehaviour
     void Update()
     {
         if(Input.GetMouseButtonDown(0)){
-            CreateLine();
+
+            //first chech how many lines are currently onscreen, if 3, then cannot draw anymore, must wait for them to be destroyed or run out
+            int LineCount = GameObject.FindGameObjectsWithTag("shield").Length;
+
+            if(LineCount < 3){
+
+                CreateLine();
+            }
+
         }
         if(Input.GetMouseButton(0)){
             Vector2 tempFingerPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -45,8 +55,15 @@ public class LineDraw : MonoBehaviour
     }
 
     void CreateLine(){
-        currentLine = Instantiate(linePrefab, Vector3.zero, Quaternion.identity);        
-        
+        currentLine = Instantiate(linePrefab, Vector3.zero, Quaternion.identity);     
+
+        lineCountLimit -= 1;
+
+
+
+        //positions its text life in starting pos
+        var lifeText = currentLine.transform.GetChild(0);
+
         totalLineLength = 0f;
         
         lineRenderer = currentLine.GetComponent<LineRenderer>();
@@ -63,7 +80,9 @@ public class LineDraw : MonoBehaviour
         //currentParticles.transform.SetParent(currentLine.transform);     
         
         
-        lineRenderer.SetPosition(0,fingerPositions[0]);
+        lineRenderer.SetPosition(0,fingerPositions[0]);        
+        
+        lifeText.SetPositionAndRotation(new Vector3(startPos.x, startPos.y,0),Quaternion.identity);
         
         //lineRenderer.SetPosition(1,fingerPositions[1]);
         edgeCollider.points = fingerPositions.ToArray();
@@ -74,7 +93,7 @@ public class LineDraw : MonoBehaviour
         totalLineLength = (totalLineLength +  (newFingerPos - startPos).magnitude);
 
         //put a limit on the length of the line
-        if(totalLineLength < 150f){
+        if(totalLineLength < 4f){
 
             //currentParticles = Instantiate(particles,newFingerPos,Quaternion.identity);        
             //currentParticles = Instantiate(particles,newFingerPos,Quaternion.identity);   
@@ -84,6 +103,8 @@ public class LineDraw : MonoBehaviour
             lineRenderer.positionCount++;
             lineRenderer.SetPosition(lineRenderer.positionCount - 1, newFingerPos);
             edgeCollider.points = fingerPositions.ToArray();
+
+            startPos = newFingerPos;
         }       
     }
 

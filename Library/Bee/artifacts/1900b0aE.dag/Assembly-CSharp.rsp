@@ -344,6 +344,7 @@
 "Assets/Scripts/projectileCollision.cs"
 "Assets/Scripts/spawnProjectile.cs"
 "Assets/Scripts/swipeCollision.cs"
+"Assets/shield.cs"
 -langversion:8.0
 
 /deterministic
