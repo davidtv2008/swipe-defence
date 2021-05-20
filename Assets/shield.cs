@@ -8,6 +8,8 @@ public class shield : MonoBehaviour
     public float hp = 100f;
     // Start is called before the first frame update
     public float lifeSpan = 3.0f;
+    
+    public GameObject collisionParticles;
 
     void Start()
     {
@@ -49,7 +51,7 @@ public class shield : MonoBehaviour
 
         
 
-        /*
+        
         ContactPoint2D point = col.GetContact(0);
         Vector3 contactPoint = point.point;
 
@@ -58,19 +60,17 @@ public class shield : MonoBehaviour
         //add collision particle effect
         addCollisionEffect(contactPoint);
 
-        */
+        
 
     }
 
     void addCollisionEffect(Vector3 pos){
-
-        /*
-        currentCollisionParticles = Instantiate(collisionParticles,pos,Quaternion.identity);
+        
+        var currentCollisionParticles = Instantiate(collisionParticles,pos,Quaternion.identity);
 
         currentCollisionParticles.transform.parent = this.transform;
 
-        life -= 10f;
-        */
+        
 
     }
 }
